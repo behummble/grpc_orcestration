@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package orcestr;
+
+option go_package = "orcestration.v1";
+
+service Orcestr {
+    rpc StopContainer(StopRequest) returns (StopResponse);
+    rpc StartContainer(StartRequest) returns (StartResponse);
+    rpc RestartContainer(RestartRequest) returns (RestartResponse);
+}
+
+message StopRequest {
+    string container_id = 1;
+}
+
+message StopResponse {
+    bool success = 1;
+    repeated string errors = 2;
+}
+
+message StartRequest {
+    string image = 1;
+    string version = 2;
+    string volumes = 3;
+    string dockerFilePath = 4;
+}
+
+message StartResponse {
+    bool success = 1;
+    repeated string errors = 2;
+    string container_id = 3;
+}
+
+message RestartRequest {
+    string container_id = 1;
+}
+
+message RestartResponse {
+    bool success = 1;
+    repeated string errors = 2;
+}
